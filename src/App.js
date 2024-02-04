@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import UserInput from './components/UserInput';
+import OrderList from './components/OrderList';
 import './App.css';
 
 function App() {
+  const [updatedOrderDetails, setOrderDetails] = useState([]);
+
+  const addOrder = (obj) => {
+    localStorage.setItem(obj.id,JSON.stringify(obj))
+    setOrderDetails((previousOrder) => {
+      return [...previousOrder, obj];
+    });
+  };
+  const deleteOrder=(id)=>{
+    localStorage.removeItem(id)
+    setOrderDetails((previousOrder)=>{
+      return previousOrder.filter((element)=>{
+        return element.id!==id
+      })
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link "
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <UserInput onAdd={addOrder} />
+      <OrderList orderList={updatedOrderDetails} onDelete={deleteOrder}/>
+    </React.Fragment>
   );
 }
 
