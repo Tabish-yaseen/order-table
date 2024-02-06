@@ -9,7 +9,7 @@ export default function UserInput(props) {
   const [isFormValid, setFormValid] = useState(false);
   useEffect(()=>{
     const id=setTimeout(()=>{
-        if( +idState !== '' && +priceState>0 && dishState.trim().length!==0){
+        if( idState !== '' && priceState>0 && dishState.trim().length!==0){
             setFormValid(true)
         }
     },500)
@@ -42,7 +42,7 @@ export default function UserInput(props) {
             id:idState,
             price:priceState,
             dish:dishState,
-            table:tableState
+            tableName:tableState
         }
         
     props.onAdd(obj)
@@ -50,6 +50,10 @@ export default function UserInput(props) {
       setPrice('');
       setDish('');
       setId('');
+  }
+  else{
+    alert('please fill all the details')
+    
   }
 }
 

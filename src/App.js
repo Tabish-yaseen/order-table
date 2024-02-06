@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import UserInput from './components/UserInput';
-import OrderList from './components/OrderList';
+import Order from './components/Order';
 import './App.css';
 
 function App() {
@@ -21,12 +21,23 @@ function App() {
     })
   }
 
+  const table1=updatedOrderDetails.filter((element)=>{
+    return element.tableName==='Table 1'
+  })
+  
+  const table2=updatedOrderDetails.filter((element)=>{
+    return element.tableName==='Table 2'
+  })
+  const table3=updatedOrderDetails.filter((element)=>{
+    return element.tableName==='Table 3'
+  })
+
   return (
     <React.Fragment>
       <UserInput onAdd={addOrder} />
-      <OrderList orderList={updatedOrderDetails} onDelete={deleteOrder}/>
+      <Order table1={table1} table2={table2}  table3={table3} onDelete={deleteOrder}/>
     </React.Fragment>
   );
 }
 
-export default App;
+export default App
